@@ -1,0 +1,118 @@
+<div>
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      @if (settingsForm.value.login) {
+        <h2>
+          Cài đặt người dùng của [<strong>{{ settingsForm.value.login }}</strong
+          >]
+        </h2>
+      }
+
+      @if (success()) {
+        <div class="alert alert-success"><strong>Đã lưu cài đặt!</strong></div>
+      }
+
+      <jhi-alert-error />
+
+      @if (settingsForm.value.login) {
+        <form name="form" (ngSubmit)="save()" [formGroup]="settingsForm" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="firstName">Tên</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              name="firstName"
+              placeholder="Nhập tên của bạn"
+              formControlName="firstName"
+              data-cy="firstname"
+            />
+
+            @let firstNameRef = settingsForm.get('firstName')!;
+            @if (firstNameRef.invalid && (firstNameRef.dirty || firstNameRef.touched)) {
+              <div>
+                @if (firstNameRef?.errors?.required) {
+                  <small class="form-text text-danger">Bạn phải nhập tên.</small>
+                }
+
+                @if (firstNameRef?.errors?.minlength) {
+                  <small class="form-text text-danger">Tên phải có ít nhất 1 ký tự</small>
+                }
+
+                @if (firstNameRef?.errors?.maxlength) {
+                  <small class="form-text text-danger">Tên không được vượt quá 50 ký tự</small>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="lastName">Họ</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              name="lastName"
+              placeholder="Nhập họ của bạn"
+              formControlName="lastName"
+              data-cy="lastname"
+            />
+
+            @let lastNameRef = settingsForm.get('lastName')!;
+            @if (lastNameRef.invalid && (lastNameRef.dirty || lastNameRef.touched)) {
+              <div>
+                @if (lastNameRef?.errors?.required) {
+                  <small class="form-text text-danger">Bạn phải nhập họ tên.</small>
+                }
+
+                @if (lastNameRef?.errors?.minlength) {
+                  <small class="form-text text-danger">Họ tên phải có ít nhất 1 ký tự</small>
+                }
+
+                @if (lastNameRef?.errors?.maxlength) {
+                  <small class="form-text text-danger">Họ tên không được vượt quá 50 ký tự</small>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Nhập email của bạn"
+              formControlName="email"
+              data-cy="email"
+            />
+
+            @let emailRef = settingsForm.get('email')!;
+            @if (emailRef.invalid && (emailRef.dirty || emailRef.touched)) {
+              <div>
+                @if (emailRef?.errors?.required) {
+                  <small class="form-text text-danger">Bạn phải nhập email.</small>
+                }
+
+                @if (emailRef?.errors?.email) {
+                  <small class="form-text text-danger">Email bạn nhập không hợp lệ.</small>
+                }
+
+                @if (emailRef?.errors?.minlength) {
+                  <small class="form-text text-danger">Email phải có ít nhất 5 ký tự.</small>
+                }
+
+                @if (emailRef?.errors?.maxlength) {
+                  <small class="form-text text-danger">Email không được vượt quá 50 ký tự.</small>
+                }
+              </div>
+            }
+          </div>
+
+          <button type="submit" [disabled]="settingsForm.invalid" class="btn btn-primary" data-cy="submit">Lưu</button>
+        </form>
+      }
+    </div>
+  </div>
+</div>

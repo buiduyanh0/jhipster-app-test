@@ -1,0 +1,176 @@
+<div>
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <h1 data-cy="registerTitle">Đăng ký</h1>
+
+      @if (success()) {
+        <div class="alert alert-success"><strong>Đăng ký thành công!</strong> Bạn vui lòng kiểm tra hộp thư để xác nhận tài khoản.</div>
+      }
+
+      @if (error()) {
+        <div class="alert alert-danger"><strong>Đăng ký thất bại!</strong> Vui lòng thử lại sau.</div>
+      }
+
+      @if (errorUserExists()) {
+        <div class="alert alert-danger"><strong>Tên tài khoản này đã được sử dụng!</strong> Bạn vui lòng chọn tên tài khoản khác.</div>
+      }
+
+      @if (errorEmailExists()) {
+        <div class="alert alert-danger"><strong>Email này đã được sử dụng!</strong> Bạn vui lòng nhập email khác.</div>
+      }
+
+      @if (doNotMatch()) {
+        <div class="alert alert-danger">Xác nhận mật khẩu không khớp!</div>
+      }
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      @if (!success()) {
+        <form name="form" (ngSubmit)="register()" [formGroup]="registerForm">
+          <div class="mb-3">
+            <label class="form-label" for="login">Tên tài khoản</label>
+            <input
+              type="text"
+              class="form-control"
+              id="login"
+              name="login"
+              placeholder="Nhập tên tài khoản của bạn"
+              formControlName="login"
+              data-cy="username"
+            />
+
+            @let loginRef = registerForm.get('login')!;
+            @if (loginRef.invalid && (loginRef.dirty || loginRef.touched)) {
+              <div>
+                @if (loginRef?.errors?.required) {
+                  <small class="form-text text-danger">Bạn phải nhập tên tài khoản.</small>
+                }
+
+                @if (loginRef?.errors?.minlength) {
+                  <small class="form-text text-danger">Tên tài khoản phải có ít nhất 1 ký tự.</small>
+                }
+
+                @if (loginRef?.errors?.maxlength) {
+                  <small class="form-text text-danger">Tên tài khoản không được vượt quá 50 ký tự.</small>
+                }
+
+                @if (loginRef?.errors?.pattern) {
+                  <small class="form-text text-danger">Your username is invalid.</small>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Nhập email của bạn"
+              formControlName="email"
+              data-cy="email"
+            />
+
+            @let emailRef = registerForm.get('email')!;
+            @if (emailRef.invalid && (emailRef.dirty || emailRef.touched)) {
+              <div>
+                @if (emailRef?.errors?.required) {
+                  <small class="form-text text-danger">Bạn phải nhập email.</small>
+                }
+
+                @if (emailRef?.errors?.invalid) {
+                  <small class="form-text text-danger">Email bạn nhập không hợp lệ.</small>
+                }
+
+                @if (emailRef?.errors?.minlength) {
+                  <small class="form-text text-danger">Email phải có ít nhất 5 ký tự.</small>
+                }
+
+                @if (emailRef?.errors?.maxlength) {
+                  <small class="form-text text-danger">Email không được vượt quá 50 ký tự.</small>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="password">Mật khẩu mới</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Nhập mật khẩu mới"
+              formControlName="password"
+              data-cy="firstPassword"
+            />
+
+            @let passwordRef = registerForm.get('password')!;
+            @if (passwordRef.invalid && (passwordRef.dirty || passwordRef.touched)) {
+              <div>
+                @if (passwordRef?.errors?.required) {
+                  <small class="form-text text-danger">Bạn phải nhập mật khẩu.</small>
+                }
+
+                @if (passwordRef?.errors?.minlength) {
+                  <small class="form-text text-danger">Mật khẩu phải có ít nhất 4 ký tự.</small>
+                }
+
+                @if (passwordRef?.errors?.maxlength) {
+                  <small class="form-text text-danger">Mật khẩu không được vượt quá 50 ký tự.</small>
+                }
+              </div>
+            }
+
+            <jhi-password-strength-bar [passwordToCheck]="passwordRef.value" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="confirmPassword">Xác nhận mật khẩu mới</label>
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Nhập lại mật khẩu mới"
+              formControlName="confirmPassword"
+              data-cy="secondPassword"
+            />
+
+            @let confirmPasswordRef = registerForm.get('confirmPassword')!;
+            @if (confirmPasswordRef.invalid && (confirmPasswordRef.dirty || confirmPasswordRef.touched)) {
+              <div>
+                @if (confirmPasswordRef?.errors?.required) {
+                  <small class="form-text text-danger">Bạn phải nhập lại mật khẩu để xác nhận.</small>
+                }
+
+                @if (confirmPasswordRef?.errors?.minlength) {
+                  <small class="form-text text-danger">Mật khẩu phải có ít nhất 4 ký tự.</small>
+                }
+
+                @if (confirmPasswordRef?.errors?.maxlength) {
+                  <small class="form-text text-danger">Mật khẩu không được vượt quá 50 ký tự.</small>
+                }
+              </div>
+            }
+          </div>
+
+          <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary" data-cy="submit">Đăng ký</button>
+        </form>
+      }
+
+      <div class="mt-3 alert alert-warning">
+        <span>Nếu bạn muốn </span>
+        <a class="alert-link" routerLink="/login">đăng nhập</a
+        ><span
+          >, bạn có thể thử với tài khoản mặc định:<br />- Quản trị viên (tài khoản=&quot;admin&quot; và mật khẩu=&quot;admin&quot;) <br />-
+          Người dùng (tài khoản=&quot;user&quot; và mật khẩu=&quot;user&quot;).</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

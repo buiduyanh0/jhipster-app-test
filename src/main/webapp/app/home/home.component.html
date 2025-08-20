@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-3">
+    <span class="hipster img-fluid rounded"></span>
+  </div>
+
+  <div class="col-md-9">
+    <h1 class="display-4"><span>Chào mừng bạn đến với Java Hipster!</span> (Jhipster Test)</h1>
+
+    <p class="lead">Đây là trang chủ của bạn</p>
+
+    <div>
+      @if (account() !== null) {
+        <div class="alert alert-success">
+          @if (account(); as accountRef) {
+            <span id="home-logged-message">Bạn đang đăng nhập bằng tài khoản &quot;{{ accountRef.login }}&quot;.</span>
+          }
+        </div>
+      } @else {
+        <div class="alert alert-warning">
+          <span>Nếu bạn muốn </span>
+          <a class="alert-link" (click)="login()">đăng nhập</a
+          ><span
+            >, bạn có thể thử với tài khoản mặc định:<br />- Quản trị viên (tài khoản=&quot;admin&quot; và mật khẩu=&quot;admin&quot;)
+            <br />- Người dùng (tài khoản=&quot;user&quot; và mật khẩu=&quot;user&quot;).</span
+          >
+        </div>
+
+        <div class="alert alert-warning">
+          <span>Bạn vẫn chưa có tài khoản?</span>&nbsp;
+          <a class="alert-link" routerLink="/account/register">Đăng ký tài khoản mới</a>
+        </div>
+      }
+    </div>
+
+    <p>Nếu bạn có bất kỳ câu hỏi nào về JHipster vui lòng truy cập:</p>
+
+    <ul>
+      <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">Trang chủ JHipster</a></li>
+      <li>
+        <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">JHipster trên Stack Overflow</a>
+      </li>
+      <li>
+        <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer"
+          >Theo dõi các lỗi JHipster</a
+        >
+      </li>
+      <li>
+        <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">Phòng chat công cộng JHipster</a>
+      </li>
+      <li><a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">Theo dõi &#64;jhipster trên Twitter</a></li>
+    </ul>
+
+    <p>
+      <span>Nếu bạn thích JHipster, đừng quên cho chúng tôi thêm một ngôi sao trên</span>
+      <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">GitHub</a>!
+    </p>
+  </div>
+</div>

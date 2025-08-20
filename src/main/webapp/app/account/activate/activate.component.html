@@ -1,0 +1,18 @@
+<div>
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <h1>Kích hoạt</h1>
+      @if (success()) {
+        <div class="alert alert-success">
+          <span><strong>Tài khoản của bạn đã được kích hoạt.</strong> Bạn vui lòng </span>
+          <a class="alert-link" routerLink="/login">đăng nhập</a>.
+        </div>
+      }
+      @if (error()) {
+        <div class="alert alert-danger">
+          <strong>Không thể kích hoạt tài khoản của bạn.</strong> Vui lòng quay lại trang đăng ký để tạo tài khoản.
+        </div>
+      }
+    </div>
+  </div>
+</div>
