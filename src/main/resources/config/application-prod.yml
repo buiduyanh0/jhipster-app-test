@@ -34,16 +34,16 @@ spring:
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: prod
-    url: jdbc:sqlserver://localhost:1433;database=jhipsterTest;encrypt=false
+    url: jdbc:sqlserver://localhost:1433;database=QLDT_HUST;encrypt=false
   mail:
     host: localhost
     port: 25
     username:
     password:
   r2dbc:
-    url: r2dbc:mssql://localhost:1433/jhipsterTest
-    username: SA
-    password: yourStrong(!)Password
+    url: r2dbc:mssql://localhost:1433/QLDT_HUST
+    username: admin
+    password: admin@123
   thymeleaf:
     cache: true
 

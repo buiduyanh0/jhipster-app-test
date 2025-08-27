@@ -1,0 +1,23 @@
+entity Book {
+  title String required,
+  author String required,
+  publishedYear Integer,
+  price Double,
+  available Boolean
+}
+
+entity Member {
+  name String required,
+  email String required unique,
+  joinDate Instant required
+}
+
+entity Borrow {
+  borrowDate Instant required,
+  returnDate Instant
+}
+
+relationship ManyToOne {
+  Borrow{member} to Member
+  Borrow{book} to Book
+}

@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (borrow(); as borrowRef) {
+      <div>
+        <h2 data-cy="borrowDetailsHeading"><span>Borrow</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ borrowRef.id }}</span>
+          </dd>
+          <dt><span>Borrow Date</span></dt>
+          <dd>
+            <span>{{ borrowRef.borrowDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Return Date</span></dt>
+          <dd>
+            <span>{{ borrowRef.returnDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Member</span></dt>
+          <dd>
+            @if (borrow()!.member) {
+              <div>
+                <a [routerLink]="['/member', borrow()!.member?.id, 'view']">{{ borrowRef.member?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Book</span></dt>
+          <dd>
+            @if (borrow()!.book) {
+              <div>
+                <a [routerLink]="['/book', borrow()!.book?.id, 'view']">{{ borrowRef.book?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Quay lại</span>
+        </button>
+
+        <button type="button" [routerLink]="['/borrow', borrowRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Sửa</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

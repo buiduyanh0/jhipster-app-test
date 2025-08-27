@@ -1,0 +1,118 @@
+<div>
+  <h2 id="page-heading" data-cy="BorrowHeading">
+    <span>Borrows</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-borrow"
+        [routerLink]="['/borrow/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Thêm mới một Borrow</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (borrows().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No Borrows found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="borrowDate">
+              <div class="d-flex">
+                <span>Borrow Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="returnDate">
+              <div class="d-flex">
+                <span>Return Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="member.id">
+              <div class="d-flex">
+                <span>Member</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="book.id">
+              <div class="d-flex">
+                <span>Book</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (borrow of borrows(); track trackId(borrow)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/borrow', borrow.id, 'view']">{{ borrow.id }}</a>
+              </td>
+              <td>{{ borrow.borrowDate | formatMediumDatetime }}</td>
+              <td>{{ borrow.returnDate | formatMediumDatetime }}</td>
+              <td>
+                @if (borrow.member) {
+                  <div>
+                    <a [routerLink]="['/member', borrow.member.id, 'view']">{{ borrow.member.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (borrow.book) {
+                  <div>
+                    <a [routerLink]="['/book', borrow.book.id, 'view']">{{ borrow.book.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/borrow', borrow.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">Xem</span>
+                  </a>
+
+                  <a [routerLink]="['/borrow', borrow.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Sửa</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(borrow)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Xóa</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

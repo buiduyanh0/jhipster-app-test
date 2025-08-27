@@ -33,7 +33,7 @@ spring:
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
-    url: jdbc:sqlserver://localhost:1433;database=jhipsterTest;encrypt=false
+    url: jdbc:sqlserver://localhost:1433;database=QLDT_HUST;encrypt=false
   mail:
     host: localhost
     port: 25
@@ -42,12 +42,11 @@ spring:
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   r2dbc:
-    url: r2dbc:mssql://localhost:1433/jhipsterTest
-    username: SA
-    password: yourStrong(!)Password
+    url: r2dbc:mssql://localhost:1433/QLDT_HUST
+    username: admin
+    password: admin@123
   thymeleaf:
     cache: false
-
 server:
   port: 8080
   # make sure requests the proxy uri instead of the server one

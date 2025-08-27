@@ -1,0 +1,33 @@
+{
+  "annotations": {
+    "changelogDate": "20250821114757"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "author",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "publishedYear",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "available",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Book",
+  "relationships": [],
+  "searchEngine": "no"
+}
